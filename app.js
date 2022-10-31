@@ -1,12 +1,13 @@
-const express = require("express");
-const bcrypt = require("bcrypt");
-const db = require("./models");
+const express = require('express');
+const bcrypt = require('bcrypt');
+const db = require('./models');
 const app = express();
+// const { Login } = require('./controllers/users');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post("/auth/signup", async (req, res) => {
+app.post('/auth/signup', async (req, res) => {
   const User = {
     full_name: req.body.fullName,
     email: req.body.email,
@@ -18,21 +19,23 @@ app.post("/auth/signup", async (req, res) => {
   try {
     await db.User.create(User);
     res.status(200).json({
-      message: "SUCCESS",
+      message: 'SUCCESS',
       result: User,
     });
   } catch (error) {
     res.status(503).json({
-      message: "FAILED",
+      message: 'FAILED',
       result: error,
     });
   }
 });
 
+// app.post('/auth/login', Login);
+
 db.sequelize
   .authenticate()
   .then(() => {
-    console.log("database connected");
-    app.listen(3000, () => console.log("serven on at http://localhost:3000"));
+    console.log('database connected');
+    app.listen(3000, () => console.log('serven on at http://localhost:3000'));
   })
   .catch((error) => console.log(error));
