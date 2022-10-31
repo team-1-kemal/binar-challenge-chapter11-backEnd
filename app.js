@@ -22,7 +22,7 @@ app.post("/auth/signup", async (req, res) => {
       result: User,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(503).json({
       message: "FAILED",
       result: error,
     });
