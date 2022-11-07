@@ -35,7 +35,7 @@ module.exports = {
         success: true,
         data: {
           userId: user.id,
-          username: user.full_name,
+          fullName: user.full_name,
           email: user.email,
           token: token,
         },
