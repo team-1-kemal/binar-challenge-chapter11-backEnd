@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const db = require('./models');
 const cors = require('cors');
@@ -17,6 +18,8 @@ db.sequelize
   .authenticate()
   .then(() => {
     console.log('database connected');
-    app.listen(3000, () => console.log('serven on at http://localhost:3000'));
+    app.listen(process.env.PORT, () =>
+      console.log('serven on at http://localhost:3000')
+    );
   })
   .catch((error) => console.log(error));

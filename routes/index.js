@@ -1,11 +1,11 @@
-const router = require("express").Router();
-const regist = require("./registRoute");
-const login = require("./loginRoute");
-const game = require("./gameRoute");
-const { verifyToken } = require("../middleware/verifyToken");
+const router = require('express').Router();
 
-router.use("/auth/signup", regist);
-router.use("/auth/login", login);
-router.use("/play/rockpaperscissor", game);
+const regist = require('./registRoute');
+const login = require('./loginRoute');
+const game = require('./gameRoute');
+
+router.use('/auth/signup', regist);
+router.use('/auth/login', login);
+router.use('/play/rockpaperscissor', game);
 
 module.exports = router;
