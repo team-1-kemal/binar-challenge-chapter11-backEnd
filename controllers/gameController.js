@@ -31,4 +31,11 @@ module.exports = {
       });
     }
   },
+  gameCheck: async (req, res) => {
+    const { id } = req.params;
+    const users = await User.findAll({ where: { id }, include: [GameHistory] });
+    res.json({
+      users,
+    });
+  },
 };
