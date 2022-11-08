@@ -4,5 +4,6 @@ require('../middleware/passport');
 const router = require('express').Router();
 
 router.get('/:id', passport.authenticate('jwt', { session: false }), gamePlay);
+router.post('/:id', passport.authenticate('jwt', { session: false }), gamePlay);
 
 module.exports = router;
