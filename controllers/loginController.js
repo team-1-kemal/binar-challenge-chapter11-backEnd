@@ -2,7 +2,7 @@ const db = require('../models');
 const Users = db.User;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const passport = require('passport');
+require('../middleware/passport');
 
 module.exports = {
   loginUser: async (req, res) => {
@@ -13,14 +13,11 @@ module.exports = {
           email: email,
         },
       });
-      console.log(password);
-      passport.authenticate('local', { session: false }, (err, user) => {
-        console.log(err);
-        if (err || !user) {
-          res.status(404).json({ message: 'email not found' });
-          return;
-        }
-      });
+
+      if (!user) {
+        res.status(404).json({ message: 'email not found' });
+        return;
+      }
       const passwordIsValid = bcrypt.compareSync(password, user.password);
       if (!passwordIsValid)
         return res.status(400).json({ message: 'wrong password' });
@@ -34,6 +31,7 @@ module.exports = {
           expiresIn: '1h',
         }
       );
+      console.log(token);
       res.status(200).json({
         status: 200,
         success: true,
@@ -52,7 +50,7 @@ module.exports = {
         success: false,
         data: {},
         message: 'Login failed!',
-        error: error.message,
+        error: true,
       });
     }
   },
