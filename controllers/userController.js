@@ -1,31 +1,66 @@
-const db = require('../models');
-const Users = db.User;
+const db = require("../models");
+const { User, GameHistory } = db;
 
 module.exports = {
-  updateUser: async (req, res) => {
+  getUser: async (req, res) => {
+    const id = req.user.userId;
+
     try {
-      const user = await Users.find(
-        req.params.userId,
-        req.body.full_name,
-        req.body.email,
-        req.body.dob,
-        req.body.city
-      );
+      const user = await User.findOne({
+        where: { id },
+        include: [GameHistory],
+      });
+
       if (!user) {
-        return res.status(404).json({
+        res.status(400).json({
+          status: 400,
           success: false,
-          message: 'Duplicate value.',
+          data: {},
+          message: "Duplicate value",
+          error: true,
         });
       }
       res.status(200).json({
+        status: 200,
         success: true,
-        message: 'user updated successfully',
+        data: user,
+        message: "Get data successfully",
+        error: null,
       });
     } catch (error) {
       return res.status(500).json({
+        status: 500,
         success: false,
-        message: 'Server error',
+        data: {},
+        message: "internal server error",
         error: error.message,
+      });
+    }
+  },
+  updateUser: async (req, res) => {
+    const { userId } = req.params;
+    const payload = {
+      full_name: req.body.fullName,
+      email: req.body.email,
+      city: req.body.city,
+      dob: req.body.dob,
+    };
+    try {
+      await User.update(payload, { where: { id: userId } });
+      res.status(200).json({
+        status: 200,
+        success: true,
+        data: {},
+        message: "Update data successfully",
+        error: null,
+      });
+    } catch (error) {
+      res.status(400).json({
+        status: 400,
+        success: false,
+        data: {},
+        message: "Update data failed!",
+        error: true,
       });
     }
   },
@@ -37,12 +72,12 @@ module.exports = {
       }
       res.status(201).json({
         success: true,
-        message: 'delete successfull',
+        message: "delete successfull",
       });
     } catch (error) {
       return res.status(501).json({
         success: false,
-        message: 'Server error',
+        message: "Server error",
         error: error.message,
       });
     }

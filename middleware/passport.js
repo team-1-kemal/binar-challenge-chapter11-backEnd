@@ -1,7 +1,7 @@
-const passport = require('passport');
-const passportJWT = require('passport-jwt');
-const db = require('../models');
-const Users = db.User;
+const passport = require("passport");
+const passportJWT = require("passport-jwt");
+const db = require("../models");
+const { Users } = db;
 const ExtractJWT = passportJWT.ExtractJwt;
 
 const JWTStrategy = passportJWT.Strategy;
@@ -12,16 +12,12 @@ passport.use(
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET_KEY,
     },
-    function (jwtPayload, cb) {
-      //find the user in db if needed
-      return Users.findOneById(jwtPayload.id)
-        .then((user) => {
-          console.log(cb());
-          return cb(null, user);
-        })
-        .catch((err) => {
-          return cb(err);
-        });
+    async function (jwtPayload, done) {
+      try {
+        return done(null, jwtPayload);
+      } catch (error) {
+        return done(err, false);
+      }
     }
   )
 );
