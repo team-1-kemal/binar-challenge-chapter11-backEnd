@@ -8,7 +8,52 @@ module.exports = {
     try {
       const user = await User.findOne({
         where: { id },
-        include: [GameHistory],
+        order: [["point", "DESC"]],
+        include: [
+          {
+            model: GameHistory,
+            limit: 5,
+          },
+        ],
+      });
+
+      if (!user) {
+        res.status(400).json({
+          status: 400,
+          success: false,
+          data: {},
+          message: "Duplicate value",
+          error: true,
+        });
+      }
+      res.status(200).json({
+        status: 200,
+        success: true,
+        data: user,
+        message: "Get data successfully",
+        error: null,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        status: 500,
+        success: false,
+        data: {},
+        message: "internal server error",
+        error: error.message,
+      });
+    }
+  },
+  getAllUser: async (req, res) => {
+    try {
+      const user = await User.findAll({
+        attributes: ["full_name", "point", "city"],
+        order: [["point", "DESC"]],
+        include: [
+          {
+            model: GameHistory,
+            limit: 5,
+          },
+        ],
       });
 
       if (!user) {
@@ -38,7 +83,7 @@ module.exports = {
     }
   },
   updateUser: async (req, res) => {
-    const { userId } = req.params;
+    const { userId } = req.user;
     const payload = {
       full_name: req.body.fullName,
       email: req.body.email,
@@ -59,7 +104,7 @@ module.exports = {
         status: 400,
         success: false,
         data: {},
-        message: "Update data failed!",
+        message: error.message,
         error: true,
       });
     }
