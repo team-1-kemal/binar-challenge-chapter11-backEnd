@@ -51,9 +51,9 @@ module.exports = {
         include: [
           {
             model: GameHistory,
-            limit: 5,
           },
         ],
+        limit: 5,
       });
 
       if (!user) {
