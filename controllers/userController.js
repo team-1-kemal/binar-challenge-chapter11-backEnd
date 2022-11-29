@@ -8,11 +8,11 @@ module.exports = {
     try {
       const user = await User.findOne({
         where: { id },
-        order: [["point", "DESC"]],
         include: [
           {
             model: GameHistory,
             limit: 5,
+            order: [["createdAt", "DESC"]],
           },
         ],
       });

@@ -4,7 +4,9 @@ const { User, GameHistory } = db;
 module.exports = {
   gamePlay: async (req, res) => {
     const { id } = req.params;
+    const { gameId } = req.params;
     const { point } = req.query;
+    const { title } = req.query;
     try {
       await User.update({ point }, { where: { id: id } });
       res.status(200).json({
@@ -16,8 +18,9 @@ module.exports = {
       });
       await GameHistory.create({
         UserId: id,
-        GameId: 1,
+        GameId: gameId,
         gameplay: new Date(),
+        game_title: title,
       });
     } catch (error) {
       res.status(500).json({
