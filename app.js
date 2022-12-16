@@ -5,7 +5,7 @@ const cors = require("cors");
 const router = require("./routes");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+	origin: "https://gamenation.my.id",
 };
 
 app.use(express.json());

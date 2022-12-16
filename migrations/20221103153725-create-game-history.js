@@ -17,6 +17,9 @@ module.exports = {
       gameplay: {
         type: Sequelize.DATEONLY,
       },
+	    game_title: {
+	type: Sequelize.STRING
+	    },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
