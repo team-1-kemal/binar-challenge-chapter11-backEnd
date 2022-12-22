@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       dob: DataTypes.DATEONLY,
       city: DataTypes.STRING,
       point: DataTypes.INTEGER,
+      pict: DataTypes.STRING,
     },
     {
       sequelize,

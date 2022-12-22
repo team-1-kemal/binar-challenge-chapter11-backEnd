@@ -33,6 +33,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         autoNull: false,
       },
+      pict: {
+        type: Sequelize.STRING,
+        autoNull: true,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
