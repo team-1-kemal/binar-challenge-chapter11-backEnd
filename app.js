@@ -6,7 +6,7 @@ const router = require("./routes");
 const path = require("path");
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: process.env.CORS_API || "http://localhost:3000",
 };
 
 app.use(express.json());
@@ -19,7 +19,6 @@ db.sequelize
   .authenticate()
   .then(() => {
     console.log("database connected");
-    console.log(__dirname);
-    app.listen(5000, () => console.log("serven on at http://localhost:5000"));
+    app.listen(process.env.PORT || 5000, () => console.log("serven on at http://localhost:5000"));
   })
   .catch((error) => console.log(error));
