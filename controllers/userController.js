@@ -84,13 +84,12 @@ module.exports = {
   },
   updateUser: async (req, res) => {
     const { userId } = req.user;
-    let pictURL = req.protocol + "://" + req.get("host") + "/uploads" + req.file.filename;
     const payload = {
       full_name: req.body.fullName,
       email: req.body.email,
       city: req.body.city,
       dob: req.body.dob,
-      pict: pictURL,
+      pict: req.body.pict,
     };
     try {
       await User.update(payload, { where: { id: userId } });
