@@ -12,8 +12,8 @@ describe("leaderboard", () => {
 describe(" user profile", () => {
   it("return user profile ", async () => {
     const req = {
-      email: "userb@mail.com",
-      password: "passwordb",
+      email: "userc@mail.com",
+      password: "passwordc",
     };
     const login = await request(app)
       .post("/auth/login")
@@ -31,8 +31,8 @@ describe(" user profile", () => {
 
   it("edits user profile", async () => {
     const req = {
-      email: "userb@mail.com",
-      password: "passwordb",
+      email: "userc@mail.com",
+      password: "passwordc",
     };
     const login = await request(app)
       .post("/auth/login")
@@ -43,7 +43,7 @@ describe(" user profile", () => {
     const id = login.body.data.userId;
 
     const body = {
-      full_name: "updated userb",
+      full_name: "updated user name",
       email: " updated email.com",
       city: "updated city",
       dob: "2010-07-22",

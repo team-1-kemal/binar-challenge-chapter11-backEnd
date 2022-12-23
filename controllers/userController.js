@@ -89,7 +89,7 @@ module.exports = {
       email: req.body.email,
       city: req.body.city,
       dob: req.body.dob,
-      pict: req.body.pic,
+      pict: req.body.pict,
     };
     try {
       await User.update(payload, { where: { id: userId } });

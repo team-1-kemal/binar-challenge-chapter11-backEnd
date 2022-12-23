@@ -4,8 +4,8 @@ const { expect, describe, it } = require("@jest/globals");
 
 describe("login", () => {
   it("login succesfull, return token", async () => {
-    const email = "userb@mail.com";
-    const password = "passwordb";
+    const email = "userc@mail.com";
+    const password = "passwordc";
     const req = {
       email,
       password,
@@ -33,7 +33,7 @@ describe("login", () => {
   });
 
   it("tests user input wrong password", async () => {
-    const email = "usera@mail.com";
+    const email = "userc@mail.com";
     const password = "salahpass";
     const req = {
       email,
