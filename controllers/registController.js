@@ -14,6 +14,7 @@ module.exports = {
     };
     try {
       const user = await User.create(payload);
+      console.log(user);
       res.status(200).json({
         status: 200,
         success: true,

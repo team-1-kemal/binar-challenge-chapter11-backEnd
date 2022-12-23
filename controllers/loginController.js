@@ -19,13 +19,18 @@ module.exports = {
         return;
       }
       const passwordIsValid = bcrypt.compareSync(password, user.password);
-      if (!passwordIsValid) return res.status(400).json({ message: "wrong password" });
+      if (!passwordIsValid)
+        return res.status(400).json({ message: "wrong password" });
 
       let token;
 
-      token = jwt.sign({ userId: user.id, email: user.email }, process.env.JWT_SECRET_KEY, {
-        expiresIn: "1h",
-      });
+      token = jwt.sign(
+        { userId: user.id, email: user.email },
+        process.env.JWT_SECRET_KEY,
+        {
+          expiresIn: "1h",
+        }
+      );
       console.log(token);
       res.status(200).json({
         status: 200,
